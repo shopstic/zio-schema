@@ -505,18 +505,20 @@ object JsonCodec extends Codec {
         fields.foreach {
           case (Schema.Field(key, schema, _), ext) =>
             val enc = Encoder.schemaEncoder(schema.asInstanceOf[Schema[Any]])
-            if (first)
-              first = false
-            else {
-              out.write(',')
-              if (indent.isDefined)
-                JsonEncoder.pad(indent_, out)
-            }
+            if (!enc.isNothing(ext(a))) {
+              if (first)
+                first = false
+              else {
+                out.write(',')
+                if (indent.isDefined)
+                  JsonEncoder.pad(indent_, out)
+              }
 
-            string.unsafeEncode(JsonFieldEncoder.string.unsafeEncodeField(key), indent_, out)
-            if (indent.isEmpty) out.write(':')
-            else out.write(" : ")
-            enc.unsafeEncode(ext(a), indent_, out)
+              string.unsafeEncode(JsonFieldEncoder.string.unsafeEncodeField(key), indent_, out)
+              if (indent.isEmpty) out.write(':')
+              else out.write(" : ")
+              enc.unsafeEncode(ext(a), indent_, out)
+            }
         }
         pad(indent, out)
         out.write('}')
