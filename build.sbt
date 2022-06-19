@@ -7,32 +7,34 @@ import sbt.moduleFilter
 inThisBuild(
   List(
     name := "zio-schema",
-    organization := "dev.zio",
-    homepage := Some(url("https://github.com/zio/zio-schema")),
+    organization := "dev.chopsticks",
+    homepage := Some(url("https://github.com/shopstic/zio-schema")),
     developers := List(
       Developer(
-        "ioleo",
-        "Piotr Gołębiewski",
-        "ioleo+zio@protonmail.com",
-        url("https://github.com/ioleo")
+        id = "nktpro",
+        name = "Jacky Nguyen",
+        email = "nktpro@gmail.com",
+        url = new URL("https://github.com/nktpro/")
       ),
       Developer(
-        "jczuchnowski",
-        "Jakub Czuchnowski",
-        "jakub.czuchnowski@gmail.com",
-        url("https://github.com/jczuchnowski")
+        id = "pwliwanow",
+        name = "Pawel Iwanow",
+        email = "pwliwanow@gmail.com",
+        url = new URL("https://github.com/pwliwanow/")
       )
     ),
     scmInfo := Some(
       ScmInfo(
         homepage.value.get,
-        "scm:git:git@github.com:zio/zio-schema.git"
+        "scm:git:git@github.com:shopstic/zio-schema.git"
       )
     ),
     licenses := Seq("Apache-2.0" -> url(s"${scmInfo.value.map(_.browseUrl).get}/blob/v${version.value}/LICENSE")),
     pgpPassphrase := sys.env.get("PGP_PASSWORD").map(_.toArray),
     pgpPublicRing := file("/tmp/public.asc"),
-    pgpSecretRing := file("/tmp/secret.asc")
+    pgpSecretRing := file("/tmp/secret.asc"),
+    sonatypeCredentialHost := "s01.oss.sonatype.org",
+    sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
   )
 )
 
